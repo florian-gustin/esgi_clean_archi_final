@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskRepository {
 
-    void getTasks();
+    List<Task> getTasks();
     void saveTask(List<Task> tasks);
 
 }

@@ -6,8 +6,9 @@ import org.example.domain.interfaces.TaskRepository;
 import java.util.List;
 
 public class FileTaskRepository implements TaskRepository {
-    public void getTasks() {
+    public List<Task> getTasks() {
 
+        return null;
     }
 
     public void saveTask(List<Task> tasks) {
