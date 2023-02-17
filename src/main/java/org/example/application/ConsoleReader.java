@@ -1,4 +1,6 @@
 package org.example.application;
 
-public class ConsoleReader {
+
+public class ConsoleReader implements Reader {
+
 }

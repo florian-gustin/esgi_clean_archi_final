@@ -20,19 +20,21 @@ public class TaskService implements ITaskService {
         return taskRepository.getTasks();
     }
 
-    public void updateTask(int id, Task task) {
+    public void updateTask(int id, Task taskToUpdate) {
         List<Task> tasks = taskRepository.getTasks();
-        for (Task t : tasks) {
-            if (t.getId() == id) {
-                t.setDescription(task.getDescription());
-                t.setEnd_at(task.getEnd_at());
-                t.setState(task.getState());
-                t.setTag(task.getTag());
-                t.setUpdate_at(task.getUpdate_at());
-                t.setSubTask(task.getSubTask());
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                task.setDescription(taskToUpdate.getDescription());
+                task.setEnd_at(taskToUpdate.getEnd_at());
+                task.setState(taskToUpdate.getState());
+                task.setTag(taskToUpdate.getTag());
+                task.setUpdate_at(taskToUpdate.getUpdate_at());
+                task.setSubTask(taskToUpdate.getSubTask());
                 taskRepository.saveTask(tasks);
+                return;
             }
         }
+        throw new RuntimeException("Task not found");
     }
 
     public void deleteTask(int id) {
@@ -41,8 +43,10 @@ public class TaskService implements ITaskService {
             if (t.getId() == id) {
                 tasks.remove(t);
                 taskRepository.saveTask(tasks);
+                return;
             }
         }
+        throw new RuntimeException("Task not found");
     }
 
 
