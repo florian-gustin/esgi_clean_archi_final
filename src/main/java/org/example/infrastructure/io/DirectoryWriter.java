@@ -1,18 +1,16 @@
 package org.example.infrastructure.io;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import org.example.infrastructure.interfaces.Writer;
 
-public class DirectoryWriter {
+public class DirectoryWriter implements Writer {
 
-    public static boolean mkdir(String directory) {
-        try {
-            Files.createDirectory(Paths.get(directory));
-            return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+    public void write(String directory) {
+//        try {
+//            Files.createDirectory(Paths.get(directory));
+//            return true;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
-
 }

@@ -1,8 +1,10 @@
 package org.example.infrastructure.io;
 
+import org.example.infrastructure.interfaces.Writer;
+
 import java.io.File;
 
-public class FileWriter {
+public class FileWriter implements Writer {
 
     private final File file;
 
@@ -11,6 +13,7 @@ public class FileWriter {
     }
 
 
+    public void write(String message) {
 
-
+    }
 }

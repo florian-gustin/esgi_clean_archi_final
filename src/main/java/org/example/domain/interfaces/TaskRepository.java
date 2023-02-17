@@ -1,4 +1,6 @@
-package org.example.domain;
+package org.example.domain.interfaces;
+
+import org.example.domain.Task;
 
 import java.util.List;
 
