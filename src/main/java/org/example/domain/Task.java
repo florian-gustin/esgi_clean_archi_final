@@ -1,7 +1,6 @@
 package org.example.domain;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 enum TaskState{
@@ -11,8 +10,8 @@ enum TaskState{
 public class Task {
 
     private TaskId id;
-    private LocalDate createdDate;
-    private LocalDate dueDate;
+    private Date createdDate;
+    private Date dueDate;
     private String content;
     private TaskState state;
     private List<Task> subTask;
@@ -23,7 +22,7 @@ public class Task {
     public static Task create(String content, String dueDate){
         final Task task = new Task();
         task.setContent(content);
-        task.setDueDate(LocalDate.parse(dueDate));
+        task.setDueDate(new Date(dueDate));
         task.setState(TaskState.TODO);
         return task;
     }
@@ -39,11 +38,11 @@ public class Task {
     }
 
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
