@@ -4,7 +4,7 @@ import org.example.domain.interfaces.ValueObjectId;
 
 import java.util.Objects;
 
-public class TaskId implements ValueObjectId {
+public final class TaskId implements ValueObjectId {
 
     private final String value;
 

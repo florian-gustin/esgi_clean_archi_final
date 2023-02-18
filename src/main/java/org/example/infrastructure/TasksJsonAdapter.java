@@ -1,6 +1,7 @@
-package org.example.domain;
+package org.example.infrastructure;
 
 import com.google.gson.Gson;
+import org.example.domain.Tasks;
 import org.example.domain.interfaces.Adapter;
 
 public class TasksJsonAdapter implements Adapter<Tasks> {

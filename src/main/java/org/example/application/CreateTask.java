@@ -17,7 +17,7 @@ public class CreateTask implements UseCase<TaskParams, Void> {
     @Override
     public Void apply(TaskParams input) {
         // get tasks by user
-        final Tasks tasks = taskRepository.getTasks();
+        final Tasks tasks = taskRepository.getAll();
         // create new task
         tasks.getData().add(Task.create(input.content, input.dueDate));
         // save tasks

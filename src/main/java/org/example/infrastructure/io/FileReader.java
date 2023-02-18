@@ -5,9 +5,9 @@ import org.example.kernel.Reader;
 import java.util.List;
 import java.util.Map;
 
-public class FileReader implements Reader<List<Map<?, ?>>> {
+public class FileReader implements Reader<String> {
     @Override
-    public List<Map<?, ?>> read() {
+    public String read() {
         return null;
     }
 }
