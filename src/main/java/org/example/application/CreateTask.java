@@ -22,7 +22,6 @@ public class CreateTask implements UseCase<TaskParams, Void> {
         tasks.getData().add(Task.create(input.content, input.dueDate));
         // save tasks
         Tasks tasksSaved = taskRepository.saveTask(tasks);
-
-        return (Void)null;
+        return null;
     }
 }
