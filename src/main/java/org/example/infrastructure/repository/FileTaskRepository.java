@@ -1,41 +1,33 @@
 package org.example.infrastructure.repository;
 
-import org.example.domain.Task;
-import org.example.domain.TaskAdapter;
+import org.example.domain.Tasks;
+import org.example.domain.TasksJsonAdapter;
 import org.example.domain.interfaces.TaskRepository;
 import org.example.kernel.Reader;
 import org.example.kernel.Writer;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class FileTaskRepository implements TaskRepository {
-    private final TaskAdapter taskAdapter;
+    private final TasksJsonAdapter taskJsonAdapter;
     private final Writer fileWriter;
     private final Reader<List<Map<?, ?>>> fileReader;
 
 
-    public FileTaskRepository(TaskAdapter taskAdapter, Writer fileWriter, Reader<List<Map<?, ?>>> fileReader) {
-        this.taskAdapter = taskAdapter;
+    public FileTaskRepository(TasksJsonAdapter taskJsonAdapter, Writer fileWriter, Reader<List<Map<?, ?>>> fileReader) {
+        this.taskJsonAdapter = taskJsonAdapter;
         this.fileWriter = fileWriter;
         this.fileReader = fileReader;
     }
 
-    public List<Task> getTasks(String user) {
-        final List<Map<?, ?>> json = fileReader.read();
-        final List<Task> tasks = json.stream().map(task -> taskAdapter.read(task)).collect(Collectors.toList());
-        return tasks;
-
-    }
-
     @Override
-    public List<Task> getTasks() {
+    public Tasks getTasks() {
         return null;
     }
 
-    public List<Task> saveTask(List<Task> tasks) {
-        final List<Map<?, ?>> json = tasks.stream().map(task -> taskAdapter.write(task)).collect(Collectors.toList());
+    public Tasks saveTask(Tasks tasks) {
+        final String json = taskJsonAdapter.convertToString(tasks);
         fileWriter.write(json);
         return tasks;
     }

@@ -13,7 +13,7 @@ public class TaskId implements ValueObjectId {
     }
 
     public String getValue() {
-        return null;
+        return value;
     }
 
     @Override
