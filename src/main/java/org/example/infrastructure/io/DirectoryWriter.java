@@ -1,6 +1,6 @@
 package org.example.infrastructure.io;
 
-import org.example.infrastructure.interfaces.Writer;
+import org.example.kernel.Writer;
 
 public class DirectoryWriter implements Writer {
 
