@@ -1,11 +1,10 @@
 package org.example.domain;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
-enum TaskState{
-    TODO, PENDING, PROGRESS, DONE, CANCELLED, CLOSED
-}
+
 
 public class Task {
 
@@ -14,8 +13,8 @@ public class Task {
     private Date dueDate;
     private String content;
     private TaskState state;
+    private String tag;
     private List<Task> subTask;
-
 
     private Task(){}
 
@@ -27,14 +26,16 @@ public class Task {
         return task;
     }
 
-
-    public void addSubTask(Task task){
-        this.subTask.add(task);
+    public TaskId getId() {
+        return id;
     }
 
+    public void setId(TaskId id) {
+        this.id = id;
+    }
 
-    public void removeSubTask(Task task){
-        this.subTask.remove(task);
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
 

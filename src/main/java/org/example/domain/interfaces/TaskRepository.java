@@ -1,13 +1,13 @@
 package org.example.domain.interfaces;
 
 import org.example.domain.Task;
-
-import java.util.List;
+import org.example.domain.Tasks;
 
 public interface TaskRepository {
 
-    List<Task> getTasks(String user);
-    List<Task> getTasks();
-    List<Task> saveTask(List<Task> tasks);
+    Tasks getAll();
+    Tasks update(Task task);
+
+    boolean remove(String id);
 
 }
