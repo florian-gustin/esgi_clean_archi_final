@@ -10,9 +10,11 @@ public class FileWriter implements Writer {
         this.writer = new java.io.FileWriter(fileName);
     }
 
-    public void write(String message) {
+    public boolean write(String message) {
         try {
             writer.write(message);
+            writer.flush();
+            return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

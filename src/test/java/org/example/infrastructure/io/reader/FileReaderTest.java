@@ -1,16 +1,18 @@
 package org.example.infrastructure.io.reader;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FileReaderTest {
 
     @Test
     void readTest() {
 
-        FileReader fileReader = mock(FileReader.class);
+        File file = new File("src/test/resources/FileTest.json");
+        FileReader fileReader = new FileReader(file);
 
-        verify(fileReader).read();
+        assertEquals("Hello ESGI", fileReader.read());
 
     }
 
