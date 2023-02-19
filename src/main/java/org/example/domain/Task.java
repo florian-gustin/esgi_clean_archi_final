@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,21 +11,22 @@ public class Task {
 
     private TaskId id;
     private TaskId parentId;
-    private LocalDate createdDate;
-    private LocalDate dueDate;
-    private LocalDate closedDate;
+//    private LocalDate createdDate;
+//    private LocalDate dueDate;
+//    private LocalDate closedDate;
     private String content;
     private TaskState state;
     private String tag;
     private List<Task> subTask;
 
-    private Task(){}
+    public Task(){}
 
     public static Task create(String content, String dueDate){
         final Task task = new Task();
         task.setContent(content);
-        task.setDueDate(LocalDate.parse(dueDate));
+//        task.setDueDate(LocalDate.parse(dueDate));
         task.setState(TaskState.TODO);
+        task.setSubTask(new ArrayList<>());
         return task;
     }
 
@@ -36,29 +38,29 @@ public class Task {
         this.id = id;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public LocalDate getClosedDate() {
-        return closedDate;
-    }
-
-    public void setClosedDate(LocalDate closedDate) {
-        this.closedDate = closedDate;
-    }
+//    public LocalDate getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    public void setCreatedDate(LocalDate createdDate) {
+//        this.createdDate = createdDate;
+//    }
+//
+//    public LocalDate getDueDate() {
+//        return dueDate;
+//    }
+//
+//    public void setDueDate(LocalDate dueDate) {
+//        this.dueDate = dueDate;
+//    }
+//
+//    public LocalDate getClosedDate() {
+//        return closedDate;
+//    }
+//
+//    public void setClosedDate(LocalDate closedDate) {
+//        this.closedDate = closedDate;
+//    }
 
     public String getContent() {
         return content;

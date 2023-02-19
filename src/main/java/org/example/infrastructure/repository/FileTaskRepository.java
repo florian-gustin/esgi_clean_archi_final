@@ -11,10 +11,13 @@ import org.example.kernel.Writer;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class FileTaskRepository implements TaskRepository {
     private final TasksJsonAdapter taskJsonAdapter;
     private final Writer fileWriter;
     private final Reader<String> fileReader;
+
+
 
 
     public FileTaskRepository(TasksJsonAdapter taskJsonAdapter, Writer fileWriter, Reader<String> fileReader) {
@@ -35,6 +38,9 @@ public class FileTaskRepository implements TaskRepository {
         try{
             Tasks tasks = getAll();
             Task task = findTaskById(tasks.getData(), taskId);
+            if(Objects.isNull(task)){
+                throw new RuntimeException("la tache n'a pas été trouvé");
+            }
             return task;
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
@@ -99,11 +105,14 @@ public class FileTaskRepository implements TaskRepository {
     public Task addTask(Task task) {
         try{
             Tasks tasks = getAll();
+            if(Objects.isNull(tasks)){
+                tasks = new Tasks(new ArrayList<>());
+            }
             task.setId(new TaskId(UUID.randomUUID().toString()));
             tasks.getData().add(task);
             String json = taskJsonAdapter.convertToString(tasks);
             fileWriter.write(json);
-            tasks = getAll();
+//            tasks = getAll();
             Task updatedTask = findTaskById(tasks.getData(), task.getId().getValue());
             if(Objects.isNull(updatedTask)){
                 throw new RuntimeException("la tache n'a pas été ajouté");
@@ -152,7 +161,7 @@ public class FileTaskRepository implements TaskRepository {
         for (Task task : tasks) {
             if (task.getId().equals(updatedTask.getId())) {
                 task.setContent(updatedTask.getContent());
-                task.setDueDate(updatedTask.getDueDate());
+//                task.setDueDate(updatedTask.getDueDate());
                 task.setState(updatedTask.getState());
                 task.setTag(updatedTask.getTag());
                 task.setSubTask(updatedTask.getSubTask());
