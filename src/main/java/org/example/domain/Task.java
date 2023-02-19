@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Task {
         task.setContent(content);
         task.setDueDate(new Date(dueDate));
         task.setState(TaskState.TODO);
+        task.setSubTask(new ArrayList<>());
         return task;
     }
 
@@ -80,5 +82,13 @@ public class Task {
 
     public void setSubTask(List<Task> subTask) {
         this.subTask = subTask;
+    }
+
+    public TaskId getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(TaskId parentId) {
+        this.parentId = parentId;
     }
 }
