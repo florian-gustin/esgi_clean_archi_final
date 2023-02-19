@@ -1,5 +1,6 @@
 package org.example.infrastructure.io.writer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class FileWriter implements Writer {
@@ -7,6 +8,8 @@ public class FileWriter implements Writer {
     private final java.io.FileWriter writer;
 
     public FileWriter(String fileName) throws IOException {
+        File yourFile = new File(fileName);
+        boolean created = yourFile.createNewFile();
         this.writer = new java.io.FileWriter(fileName);
     }
 
