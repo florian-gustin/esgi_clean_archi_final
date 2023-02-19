@@ -4,6 +4,7 @@ import org.example.core.entity.Task;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
 import org.example.core.usecases.data.TaskDTO;
+import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
@@ -25,13 +26,13 @@ public class CreateTask implements UseCase<TaskDTO, Void> {
     @Override
     public Void apply(TaskDTO input) {
         Task createdTask = taskRepository.addTask(Task.create(input.content, input.dueDate, input.tag));
-
+        String message = MessageFormatterUtils.createTask(input);
         if(Objects.isNull(createdTask)) {
-            consoleLogger.message("Task not created", DebugLevel.ERROR);
-            debugLogger.message("Task not created", DebugLevel.ERROR);
+            consoleLogger.message(message+" has not been created "+input, DebugLevel.ERROR);
+            debugLogger.message(message+" has not been created "+input, DebugLevel.ERROR);
         }else{
-            consoleLogger.message("Task created", DebugLevel.OK);
-            debugLogger.message("Task created", DebugLevel.OK);
+            consoleLogger.message(message+createdTask.getId().getValue()+" has been created", DebugLevel.OK);
+            debugLogger.message(message+createdTask.getId().getValue()+" has been created", DebugLevel.OK);
         }
         return (Void) null;
     }

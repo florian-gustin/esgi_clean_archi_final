@@ -29,18 +29,23 @@ public class MessageFormatterUtils {
     }
 
     public static String updateTask(TaskDTO input){
-        return "update "+ withTaskDTO(input)+" : task ";
+        return "update "+input.taskId+" "+ withTaskDTO(input)+" : task ";
     }
 
-    public static String removeTask(TaskDTO input){
-        return "remove "+ input.taskId +" : task ";
+    public static String removeTask(String taskId){
+        return "remove "+ taskId +" : task ";
     }
 
     public static String createTask(TaskDTO input){
-        return "add "+ withTaskDTO(input) +" : task ";
+        return "add "+ withTaskDTO(input) +" : task #";
     }
 
+    public static String createSubTask(TaskDTO input){
+        return "add-sub "+ withTaskDTO(input) +" : sub task #";
+    }
+
+
     public static String listTask(){
-        return "list all tasks";
+        return "list : ";
     }
 }

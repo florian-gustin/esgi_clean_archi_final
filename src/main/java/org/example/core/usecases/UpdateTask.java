@@ -36,12 +36,12 @@ public class UpdateTask implements UseCase<TaskDTO, Task> {
         task.update(input.content, input.dueDate, input.status, input.tag);
         Task updateTask = taskRepository.updateTask(task);
         if(Objects.isNull(updateTask)){
-            consoleLogger.message(updateStr+"has not been updated", DebugLevel.ERROR);
-            debugLogger.message(updateStr+"has not been updated", DebugLevel.ERROR);
+            consoleLogger.message(updateStr+"has not been updated "+input, DebugLevel.ERROR);
+            debugLogger.message(updateStr+"has not been updated "+input, DebugLevel.ERROR);
             return null;
         }
-        consoleLogger.message(updateStr+"has been updated", DebugLevel.OK);
-        debugLogger.message(updateStr+"has been updated", DebugLevel.OK);
+        consoleLogger.message(updateStr+"has been updated "+updateTask, DebugLevel.OK);
+        debugLogger.message(updateStr+"has been updated "+updateTask, DebugLevel.OK);
         return updateTask;
     }
 

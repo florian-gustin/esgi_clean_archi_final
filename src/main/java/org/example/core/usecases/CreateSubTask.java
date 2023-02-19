@@ -4,6 +4,7 @@ import org.example.core.entity.Task;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
 import org.example.core.usecases.data.TaskDTO;
+import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
@@ -25,19 +26,20 @@ public class CreateSubTask implements UseCase<TaskDTO, Void> {
     @Override
     public Void apply(TaskDTO input) {
         Task parentTask = taskRepository.getTaskById(input.parentId);
+        String message = MessageFormatterUtils.createSubTask(input);
         if(Objects.isNull(parentTask)){
-            consoleLogger.message("Parent Task not found", DebugLevel.ERROR);
-            debugLogger.message("Parent Task not found", DebugLevel.ERROR);
+            consoleLogger.message("parent task #"+input.parentId+ "not found", DebugLevel.ERROR);
+            debugLogger.message("parent task #"+input.parentId+ "not found", DebugLevel.ERROR);
             return (Void) null;
         }
         parentTask.createSubTask(input.content, input.dueDate, input.tag);
         Task updateTask = taskRepository.updateTask(parentTask);
         if(Objects.isNull(updateTask)) {
-            consoleLogger.message("Sub Task not created", DebugLevel.ERROR);
-            debugLogger.message("Sub Task not created", DebugLevel.ERROR);
+            consoleLogger.message(message+ "? not created", DebugLevel.ERROR);
+            debugLogger.message(message+ "? created", DebugLevel.ERROR);
         }else{
-            consoleLogger.message("Sub Task created", DebugLevel.OK);
-            debugLogger.message("Sub Task created", DebugLevel.OK);
+            consoleLogger.message(message+updateTask.getId().getValue()+ " created", DebugLevel.OK);
+            debugLogger.message(message+updateTask.getId().getValue()+ " created", DebugLevel.OK);
         }
         return (Void) null;
     }

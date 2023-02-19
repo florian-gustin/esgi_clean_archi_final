@@ -4,6 +4,7 @@ import org.example.core.entity.Tasks;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
 import org.example.core.usecases.data.TaskDTO;
+import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
@@ -25,12 +26,13 @@ public class ListTask implements UseCase<TaskDTO, Void> {
     @Override
     public Void apply(TaskDTO input) {
         final Tasks tasks = taskRepository.getAll();
+        String message = MessageFormatterUtils.listTask();
         if(Objects.isNull(tasks)){
-            consoleLogger.message("None tasks", DebugLevel.ERROR);
-            debugLogger.message("None tasks", DebugLevel.ERROR);
+            consoleLogger.message(message+"none tasks", DebugLevel.ERROR);
+            debugLogger.message(message+"none tasks", DebugLevel.ERROR);
         }else{
-            consoleLogger.message("Tasks retrieved", DebugLevel.OK);
-            debugLogger.message("Tasks retrieved", DebugLevel.OK);
+            consoleLogger.message(message+" "+tasks, DebugLevel.OK);
+            debugLogger.message(message+" "+tasks, DebugLevel.OK);
         }
         // afficher
         return (Void) null;

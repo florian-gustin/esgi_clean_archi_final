@@ -22,5 +22,10 @@ public class Tasks {
         this.data = data;
     }
 
-
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "data=" + data +
+                '}';
+    }
 }
