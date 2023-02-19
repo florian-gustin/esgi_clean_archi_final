@@ -1,5 +1,6 @@
 package org.example.core.usecases;
 
+import org.example.core.entity.Task;
 import org.example.core.entity.Tasks;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
@@ -8,7 +9,10 @@ import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
-import java.util.Objects;
+import java.time.Instant;
+import java.util.*;
+
+import org.example.core.usecases.data.TaskState;
 
 public class ListTask implements UseCase<TaskDTO, Void> {
 
@@ -26,15 +30,38 @@ public class ListTask implements UseCase<TaskDTO, Void> {
     @Override
     public Void apply(TaskDTO input) {
         final Tasks tasks = taskRepository.getAll();
+
         String message = MessageFormatterUtils.listTask();
         if(Objects.isNull(tasks)){
             consoleLogger.message(message+"none tasks", DebugLevel.ERROR);
             debugLogger.message(message+"none tasks", DebugLevel.ERROR);
         }else{
-            consoleLogger.message(message+" "+tasks, DebugLevel.OK);
-            debugLogger.message(message+" "+tasks, DebugLevel.OK);
+            Deque<TaskState> filteredTask = filterTask(tasks);
+            for( TaskState task : filteredTask) {
+                if (task.isOverDue) {
+                    String taskPrint = "\u001B[41m" + task.task.toString() + "\u001B[0m";
+                    consoleLogger.message(message+" "+taskPrint, DebugLevel.INFO);
+                    debugLogger.message(message+" "+task, DebugLevel.INFO);
+                } else {
+                    consoleLogger.message(message+" "+task, DebugLevel.OK);
+                    debugLogger.message(message+" "+task, DebugLevel.OK);
+                }
+            }
         }
         // afficher
+
         return (Void) null;
+    }
+
+    private Deque<TaskState> filterTask(Tasks tasks) {
+        Deque<TaskState> filteredTask = new LinkedList<>();
+        for( Task task : tasks.getData()) {
+            if (task.getDueDate().before(Date.from(Instant.now()))) {
+                filteredTask.add(new TaskState(task, true));
+            } else {
+                filteredTask.add(new TaskState(task, false));
+            }
+        }
+        return filteredTask;
     }
 }
