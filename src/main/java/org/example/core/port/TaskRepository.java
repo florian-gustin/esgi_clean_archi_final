@@ -1,7 +1,7 @@
 package org.example.core.port;
 
-import org.example.core.entity.Task;
-import org.example.core.entity.Tasks;
+import org.example.infrastructure.data.TaskPersistenceObject;
+import org.example.infrastructure.data.TasksPersistenceObject;
 
 public interface TaskRepository {
 
@@ -9,21 +9,21 @@ public interface TaskRepository {
      * Get all tasks
      * @return
      */
-    Tasks getAll();
+    TasksPersistenceObject getAll();
 
     /**
      * Get a task by id
      * @param taskId
      * @return
      */
-    Task getTaskById(String taskId);
+    TaskPersistenceObject getTaskById(String taskId);
 
     /**
      * Update a task
      * @param task
      * @return
      */
-    Task updateTask(Task task);
+    TaskPersistenceObject updateTask(TaskPersistenceObject task);
 
     /**
      * Remove a task by id
@@ -37,13 +37,13 @@ public interface TaskRepository {
      * @param subTask
      * @return
      */
-    Task addSubTask(Task subTask);
+    TaskPersistenceObject addSubTask(TaskPersistenceObject subTask);
 
     /**
      * Add a task
      * @param task
      * @return
      */
-    Task addTask(Task task);
+    TaskPersistenceObject addTask(TaskPersistenceObject task);
 
 }

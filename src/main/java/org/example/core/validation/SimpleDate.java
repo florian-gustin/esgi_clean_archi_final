@@ -5,12 +5,12 @@ import org.example.core.validation.contract.ValueObject;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public final class Date implements ValueObject<LocalDate> {
+public final class SimpleDate implements ValueObject<LocalDate> {
 
 
     private final LocalDate value;
 
-    public Date(String value) throws DateTimeParseException {
+    public SimpleDate(String value) throws DateTimeParseException {
         this.value = LocalDate.parse(value);
     }
 

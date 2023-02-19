@@ -10,10 +10,6 @@ public class Tasks {
         this.data = tasks;
     }
 
-    public static Tasks create(List<Task> tasks) {
-        return new Tasks(tasks);
-    }
-
     public List<Task> getData() {
         return data;
     }

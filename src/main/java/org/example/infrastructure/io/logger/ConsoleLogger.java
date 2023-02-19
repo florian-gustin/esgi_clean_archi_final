@@ -1,5 +1,8 @@
 package org.example.infrastructure.io.logger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ConsoleLogger implements Logger<Void> {
     @Override
     public Void message(String value) {
@@ -9,10 +12,20 @@ public class ConsoleLogger implements Logger<Void> {
 
     @Override
     public Void message(String value, DebugLevel level) {
-        if(level == DebugLevel.INFO) {
-            System.out.println(value);
+        String message = "";
+        LocalDateTime date = LocalDateTime.now();
+
+        switch (level) {
+
+            case ERROR -> {
+                message = "[err]" + "[" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd:HH'h'mm,ss")) + "] ";
+            }
+            case OK -> {
+                message = "[ok+]" + "[" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd:HH'h'mm,ss")) + "] ";
+            }
         }
 
+        System.out.println(message + value);
         return null;
     }
 }

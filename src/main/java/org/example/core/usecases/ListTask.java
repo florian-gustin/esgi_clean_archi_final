@@ -1,5 +1,8 @@
 package org.example.core.usecases;
 
+import org.example.core.port.ObjectMapper;
+import org.example.infrastructure.data.TaskPersistenceObject;
+import org.example.core.entity.Task;
 import org.example.core.entity.Task;
 import org.example.core.entity.Tasks;
 import org.example.core.port.TaskRepository;
@@ -19,20 +22,22 @@ public class ListTask implements UseCase<TaskDTO, Void> {
     private final TaskRepository taskRepository;
     private final Logger<String> debugLogger;
     private final Logger<Void> consoleLogger;
+    private final ObjectMapper<Task, TaskPersistenceObject> objectMapper;
 
-    public ListTask(TaskRepository taskRepository, Logger<String> debugLogger, Logger<Void> consoleLogger) {
+
+    public ListTask(TaskRepository taskRepository, Logger<String> debugLogger, Logger<Void> consoleLogger, ObjectMapper<Task, TaskPersistenceObject> objectMapper) {
         this.taskRepository = taskRepository;
         this.debugLogger = debugLogger;
         this.consoleLogger = consoleLogger;
+        this.objectMapper = objectMapper;
     }
 
 
     @Override
     public Void apply(TaskDTO input) {
-        final Tasks tasks = taskRepository.getAll();
-
+        final Tasks tasks = new Tasks(taskRepository.getAll().getData().stream().map(objectMapper::toEntity).toList());
         String message = MessageFormatterUtils.listTask();
-        if(Objects.isNull(tasks)){
+        if(tasks.getData().isEmpty()){
             consoleLogger.message(message+"none tasks", DebugLevel.ERROR);
             debugLogger.message(message+"none tasks", DebugLevel.ERROR);
         }else{
@@ -49,7 +54,6 @@ public class ListTask implements UseCase<TaskDTO, Void> {
             }
         }
         // afficher
-
         return (Void) null;
     }
 
