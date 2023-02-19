@@ -23,17 +23,17 @@ public class Bootstrap {
 
     private final Parser<TaskDTO> parser = new ConsoleParser();
     private final Logger<Void> consoleLogger = new ConsoleLogger();
-    private final Logger<String> debugLogger =new DebugLogger();
     private final Reader<String> fileReader = new FileReader(new File(Constants.FILENAME));
     private final Writer fileWriter = new FileWriter(Constants.FILENAME);
+    private final Logger<String> debugLogger =new DebugLogger(fileWriter);
     private final Writer directoryWriter = new DirectoryWriter();
     private final TasksJsonAdapter tasksJsonAdapter = new TasksJsonAdapter();
     private final TaskRepository taskRepository = new FileTaskRepository(tasksJsonAdapter, fileWriter, directoryWriter, fileReader);
-    private final CreateTask createTask = new CreateTask(taskRepository);
-    private final CreateSubTask createSubTask = new CreateSubTask(taskRepository);
-    private final UpdateTask updateTask = new UpdateTask(taskRepository);
-    private final RemoveTask removeTask = new RemoveTask(taskRepository);
-    private final ListTask listTask = new ListTask(taskRepository);
+    private final CreateTask createTask = new CreateTask(taskRepository, debugLogger, consoleLogger);
+    private final CreateSubTask createSubTask = new CreateSubTask(taskRepository, debugLogger, consoleLogger);
+    private final UpdateTask updateTask = new UpdateTask(taskRepository, debugLogger, consoleLogger);
+    private final RemoveTask removeTask = new RemoveTask(taskRepository, debugLogger, consoleLogger);
+    private final ListTask listTask = new ListTask(taskRepository, debugLogger, consoleLogger);
 
     public Bootstrap() throws IOException {
     }
