@@ -1,8 +1,11 @@
 package org.example.core.entity;
 
+import org.example.core.validation.SimpleDate;
 import org.example.core.validation.TaskId;
 import org.example.core.state.TaskState;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,8 +16,8 @@ public class Task {
 
     private TaskId id;
     private TaskId parentId;
-    private Date createdDate;
-    private Date dueDate;
+    private SimpleDate createdDate;
+    private SimpleDate dueDate;
     private String content;
     private TaskState state;
     private String tag;
@@ -24,17 +27,20 @@ public class Task {
 
     public static Task create(String content, String dueDate, String tag){
         final Task task = new Task();
-        task.setContent(content);
-        task.setDueDate(new Date(dueDate));
+        if (Objects.nonNull(content))
+            task.setContent(content);
+        if(Objects.nonNull(dueDate))
+            task.setDueDate(new SimpleDate(dueDate));
+        if(Objects.nonNull(tag))
+            task.setTag(tag);
         task.setState(TaskState.TODO);
         task.setSubTask(new ArrayList<>());
-        task.setTag(tag);
         return task;
     }
 
     public Task update(String content, String dueDate, String state, String tag){
         this.setContent(content);
-        this.setDueDate(new Date(dueDate));
+        this.setDueDate(new SimpleDate(dueDate));
         this.setState(TaskState.valueOf(state));
         this.setTag(tag);
         return this;
@@ -64,19 +70,20 @@ public class Task {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+
+    public SimpleDate getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getDueDate() {
+    public SimpleDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setCreatedDate(SimpleDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setDueDate(SimpleDate dueDate) {
         this.dueDate = dueDate;
     }
 
