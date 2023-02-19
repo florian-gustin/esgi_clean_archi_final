@@ -1,20 +1,29 @@
 package org.example.infrastructure.io.logger;
 
-import java.time.LocalDate;
+import org.example.infrastructure.io.writer.FileWriter;
+import org.example.infrastructure.io.writer.Writer;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DebugLogger implements Logger<String> {
 
-    private String beforeMessage(DebugLevel debug) {
+    private final Writer fileWriter;
+
+    public DebugLogger(Writer fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
+    private String beforeMessage(DebugLevel debug, LocalDateTime date) {
         String message = "";
-        LocalDate date = LocalDate.now();
 
         switch (debug) {
 
             case ERROR -> {
-                message = "[err]" + "[" + date + "]";
+                message = "[err]" + "[" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd:HH'h'mm,ss")) + "] ";
             }
             case OK -> {
-                message = "[ok]" + "[" + date + "]";
+                message = "[ok+]" + "[" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd:HH'h'mm,ss")) + "] ";
             }
         }
 
@@ -24,12 +33,19 @@ public class DebugLogger implements Logger<String> {
 
     @Override
     public String message(String value) {
-        return  message(value, DebugLevel.OK);
+        return  message(value, DebugLevel.OK, LocalDateTime.now());
     }
 
     @Override
     public String message(String value, DebugLevel level) {
-        return beforeMessage(level) + value;
+        return message(value, level, LocalDateTime.now());
     }
+
+    private String message(String value, DebugLevel level, LocalDateTime date) {
+        String message = beforeMessage(level, date) + value;
+        fileWriter.write(message);
+        return message;
+    }
+
 
 }

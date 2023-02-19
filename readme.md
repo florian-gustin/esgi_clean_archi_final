@@ -63,6 +63,7 @@ folder `~/.consoleagenda/` with :
   - where status: `[ok+] | [err]`
   - ex: `[err][2022-02-10:10h55,23] update 1 "hello world" : task #1 does not exist`
   - ex: `[ok+][2022-02-10:10h56,00] add "hello world"`
+
 - (optional) overdue tasks (= tasks with due date in the past) should be presented in red, 
 first before the other tasks
 

@@ -47,7 +47,8 @@ public class FileWriterTest {
 
     }
 
-    void testReadWritedFile() {
+    @Test
+    void testReadWroteFile() {
         try {
             String data = "";
             Scanner scanner = new Scanner(new File(FILENAME));
@@ -55,11 +56,12 @@ public class FileWriterTest {
                 data += scanner.nextLine();
             }
             scanner.close();
+            assertEquals(CONTENT, data);
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        //assertEquals();
 
     }
 
