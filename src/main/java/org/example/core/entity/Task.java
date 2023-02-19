@@ -6,7 +6,7 @@ import org.example.core.state.TaskState;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class Task {
@@ -118,5 +118,18 @@ public class Task {
 
     public void setParentId(TaskId parentId) {
         this.parentId = parentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return  state == task.state && Objects.equals(subTask, task.subTask);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(state, subTask);
     }
 }

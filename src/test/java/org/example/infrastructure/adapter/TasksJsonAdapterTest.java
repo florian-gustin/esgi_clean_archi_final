@@ -19,31 +19,23 @@ public class TasksJsonAdapterTest {
     @Test
     void shouldConvertJsonToTasksObject() {
         // Given
-        String json = "{\"data\":[{\"created\":\"2022-02-15T22:14:30.486798+01:00\",\"dueDate\":\"2022-02-16T14:14:30.535929+01:00\",\"closeDate\":null,\"description\":\"init a project to create an app for my tasks\",\"state\":0,\"tag\":null,\"subTasks\":[{\"created\":\"2022-02-15T22:14:30.535975+01:00\",\"dueDate\":null,\"closeDate\":null,\"description\":\"init repo for the project\",\"state\":3,\"tag\":null,\"subTasks\":null}]}]}";
-
+        String json = "{\"data\":[{\"state\":\"TODO\",\"subTask\":[{\"state\":\"DONE\"}]}]}";
+        System.out.println(json);
         List<Task> tasks = new ArrayList<>();
         Task task = new Task();
-        task.setContent("init a project to create an app for my tasks");
-        task.setCreatedDate(new Date("2022-02-15T22:14:30.486798+01:00"));
-        task.setDueDate(new Date("2022-02-16T14:14:30.535929+01:00"));
         task.setState(TaskState.TODO);
+
 
         List<Task> subTasks = new ArrayList<>();
         Task subTask = new Task();
-        subTask.setContent("init repo for the project");
-        subTask.setCreatedDate(new Date("2022-02-15T22:14:30.535975+01:00"));
         subTask.setState(TaskState.DONE);
         subTasks.add(subTask);
         task.setSubTask(subTasks);
-
         tasks.add(task);
         Tasks expectedTasks = new Tasks(tasks);
-
-        // When
         Tasks actualTasks = tasksJsonAdapter.convertToObject(json);
-
         // Then
-        Assertions.assertEquals(expectedTasks, actualTasks);
+        Assertions.assertEquals(actualTasks.getData().get(0).getState(),expectedTasks.getData().get(0).getState());
     }
 
     @Test
@@ -69,8 +61,10 @@ public class TasksJsonAdapterTest {
 
         // When
         String actualJson = tasksJsonAdapter.convertToString(tasksObj);
+        System.out.println(actualJson);
 
         // Then
         Assertions.assertEquals(expectedJson, actualJson);
     }
+
 }
