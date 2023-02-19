@@ -9,6 +9,7 @@ import java.util.List;
 public class Task {
 
     private TaskId id;
+    private TaskId parentId;
     private LocalDate createdDate;
     private LocalDate dueDate;
     private LocalDate closedDate;
@@ -89,5 +90,13 @@ public class Task {
 
     public void setSubTask(List<Task> subTask) {
         this.subTask = subTask;
+    }
+
+    public TaskId getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(TaskId parentId) {
+        this.parentId = parentId;
     }
 }
