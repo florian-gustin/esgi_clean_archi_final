@@ -1,6 +1,5 @@
 package org.example.infrastructure.io.logger;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,9 +31,7 @@ public class DebugLoggerTest {
         try {
             String output = String.valueOf(getMessage().invoke(logger, "this test work", DebugLevel.OK, date));
             assertEquals("[ok][2009-02-19] this test work", output);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
 
