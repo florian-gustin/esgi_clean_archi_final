@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="esgi_clean_archi_exo_final" />
+        <module name="esgi_clean_archi_final" />
       </profile>
     </annotationProcessing>
   </component>
