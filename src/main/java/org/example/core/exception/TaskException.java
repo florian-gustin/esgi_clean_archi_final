@@ -1,4 +1,4 @@
-package org.example.infrastructure.exception;
+package org.example.core.exception;
 
 public class TaskException extends Exception {
 

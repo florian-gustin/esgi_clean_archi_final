@@ -20,7 +20,7 @@ public class Task {
     private String tag;
     private List<Task> subTask;
 
-    private Task(){}
+    public Task(){}
 
     public static Task create(String content, String dueDate, String tag){
         final Task task = new Task();

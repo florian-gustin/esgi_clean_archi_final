@@ -6,7 +6,7 @@ import org.example.core.entity.Tasks;
 import org.example.infrastructure.adapter.TasksJsonAdapter;
 import org.example.core.port.TaskRepository;
 import org.example.infrastructure.config.Constants;
-import org.example.infrastructure.exception.TaskException;
+import org.example.core.exception.TaskException;
 import org.example.infrastructure.io.reader.Reader;
 import org.example.infrastructure.io.writer.Writer;
 
