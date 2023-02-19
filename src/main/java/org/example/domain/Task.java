@@ -10,21 +10,19 @@ import java.util.List;
 public class Task {
 
     private TaskId id;
-    private TaskId parentId;
-//    private LocalDate createdDate;
-//    private LocalDate dueDate;
-//    private LocalDate closedDate;
+    private Date createdDate;
+    private Date dueDate;
     private String content;
     private TaskState state;
     private String tag;
     private List<Task> subTask;
 
-    public Task(){}
+    private Task(){}
 
     public static Task create(String content, String dueDate){
-        final Task task = new Task();
+        final Task task = new Task();;
         task.setContent(content);
-//        task.setDueDate(LocalDate.parse(dueDate));
+        task.setDueDate(new Date(dueDate));
         task.setState(TaskState.TODO);
         task.setSubTask(new ArrayList<>());
         return task;
@@ -38,29 +36,21 @@ public class Task {
         this.id = id;
     }
 
-//    public LocalDate getCreatedDate() {
-//        return createdDate;
-//    }
-//
-//    public void setCreatedDate(LocalDate createdDate) {
-//        this.createdDate = createdDate;
-//    }
-//
-//    public LocalDate getDueDate() {
-//        return dueDate;
-//    }
-//
-//    public void setDueDate(LocalDate dueDate) {
-//        this.dueDate = dueDate;
-//    }
-//
-//    public LocalDate getClosedDate() {
-//        return closedDate;
-//    }
-//
-//    public void setClosedDate(LocalDate closedDate) {
-//        this.closedDate = closedDate;
-//    }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 
     public String getContent() {
         return content;
