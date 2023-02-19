@@ -73,6 +73,7 @@ public class FileTaskRepository implements TaskRepository {
     public boolean removeTaskById(String taskId) {
         try{
             Tasks tasks = getAll();
+            System.out.println(tasks.getData().get(0).getId().getValue());
             List<Task> taskList = deleteTaskById(tasks.getData(), taskId);
             String json = taskJsonAdapter.convertToString(new Tasks(taskList));
             fileWriter.write(json);
@@ -116,7 +117,6 @@ public class FileTaskRepository implements TaskRepository {
             tasks.getData().add(task);
             String json = taskJsonAdapter.convertToString(tasks);
             fileWriter.write(json);
-//            tasks = getAll();
             Task updatedTask = findTaskById(tasks.getData(), task.getId().getValue());
             if(Objects.isNull(updatedTask)){
                 throw new TaskException("la tache n'a pas été ajouté");
@@ -164,12 +164,11 @@ public class FileTaskRepository implements TaskRepository {
     private List<Task> updateTaskAndGetList(List<Task> tasks, Task updatedTask) {
         for (Task task : tasks) {
             if (task.getId().equals(updatedTask.getId())) {
-                task.copyWith(updatedTask);
-//                task.setContent(updatedTask.getContent());
-////                task.setDueDate(updatedTask.getDueDate());
-//                task.setState(updatedTask.getState());
-//                task.setTag(updatedTask.getTag());
-//                task.setSubTask(updatedTask.getSubTask());
+                task.setContent(updatedTask.getContent());
+                task.setDueDate(updatedTask.getDueDate());
+                task.setState(updatedTask.getState());
+                task.setTag(updatedTask.getTag());
+                task.setSubTask(updatedTask.getSubTask());
                 return tasks;
             } else {
                 List<Task> subTasks = task.getSubTask();

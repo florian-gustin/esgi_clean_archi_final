@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.example.core.entity.Task;
 import org.example.core.entity.Tasks;
 import org.example.core.state.TaskState;
+import org.example.core.validation.TaskId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +44,8 @@ public class TasksJsonAdapterTest {
         // Given
         List<Task> tasks = new ArrayList<>();
         Task task = new Task();
+        task.setId(new TaskId("2d6ab1a6-3f6e-44cf-81c3-55cf9f3c3a11"));
+        task.setContent("Task 1");
         task.setCreatedDate(new Date());
         task.setDueDate(new Date());
         task.setState(TaskState.TODO);
