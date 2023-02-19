@@ -1,29 +1,33 @@
 package org.example.infrastructure.repository;
 
-import org.example.domain.Task;
-import org.example.domain.TaskId;
-import org.example.domain.Tasks;
-import org.example.infrastructure.TasksJsonAdapter;
-import org.example.domain.interfaces.TaskRepository;
-import org.example.kernel.Reader;
-import org.example.kernel.Writer;
+import org.example.core.entity.Task;
+import org.example.core.validation.TaskId;
+import org.example.core.entity.Tasks;
+import org.example.infrastructure.adapter.TasksJsonAdapter;
+import org.example.core.port.TaskRepository;
+import org.example.infrastructure.config.Constants;
+import org.example.infrastructure.exception.TaskException;
+import org.example.infrastructure.io.reader.Reader;
+import org.example.infrastructure.io.writer.Writer;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class FileTaskRepository implements TaskRepository {
     private final TasksJsonAdapter taskJsonAdapter;
     private final Writer fileWriter;
+    private final Writer directoryWriter;
     private final Reader<String> fileReader;
 
 
 
 
-    public FileTaskRepository(TasksJsonAdapter taskJsonAdapter, Writer fileWriter, Reader<String> fileReader) {
+    public FileTaskRepository(TasksJsonAdapter taskJsonAdapter, Writer fileWriter, Writer directoryWriter, Reader<String> fileReader) {
         this.taskJsonAdapter = taskJsonAdapter;
         this.fileWriter = fileWriter;
+        this.directoryWriter = directoryWriter;
         this.fileReader = fileReader;
+        initDirectory();
     }
 
     @Override
@@ -39,10 +43,10 @@ public class FileTaskRepository implements TaskRepository {
             Tasks tasks = getAll();
             Task task = findTaskById(tasks.getData(), taskId);
             if(Objects.isNull(task)){
-                throw new RuntimeException("la tache n'a pas été trouvé");
+                throw new TaskException("la tache n'a pas été trouvé");
             }
             return task;
-        }catch (Exception e){
+        }catch (TaskException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -57,10 +61,10 @@ public class FileTaskRepository implements TaskRepository {
             tasks = getAll();
             Task updatedTask = findTaskById(tasks.getData(), task.getId().getValue());
             if(Objects.isNull(updatedTask)){
-                throw new RuntimeException("la tache n'a pas été mis a jour");
+                throw new TaskException("la tache n'a pas été mis a jour");
             }
             return updatedTask;
-        }catch (Exception e){
+        }catch (TaskException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -75,10 +79,10 @@ public class FileTaskRepository implements TaskRepository {
             tasks = getAll();
             boolean isDeleted = Objects.isNull(findTaskById(tasks.getData(), taskId));
             if(!isDeleted){
-                throw new RuntimeException("la tache n'a pas été supprimé");
+                throw new TaskException("la tache n'a pas été supprimé");
             }
             return true;
-        }catch (Exception e){
+        }catch (TaskException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -93,10 +97,10 @@ public class FileTaskRepository implements TaskRepository {
             tasks = getAll();
             Task updatedTask = findTaskById(tasks.getData(), subTask.getId().getValue());
             if(Objects.isNull(updatedTask)){
-                throw new RuntimeException("la tache n'a pas été ajouté");
+                throw new TaskException("la tache n'a pas été ajouté");
             }
             return updatedTask;
-        }catch (Exception e){
+        }catch (TaskException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -115,10 +119,10 @@ public class FileTaskRepository implements TaskRepository {
 //            tasks = getAll();
             Task updatedTask = findTaskById(tasks.getData(), task.getId().getValue());
             if(Objects.isNull(updatedTask)){
-                throw new RuntimeException("la tache n'a pas été ajouté");
+                throw new TaskException("la tache n'a pas été ajouté");
             }
             return updatedTask;
-        }catch (Exception e){
+        }catch (TaskException e){
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -160,11 +164,12 @@ public class FileTaskRepository implements TaskRepository {
     private List<Task> updateTaskAndGetList(List<Task> tasks, Task updatedTask) {
         for (Task task : tasks) {
             if (task.getId().equals(updatedTask.getId())) {
-                task.setContent(updatedTask.getContent());
-//                task.setDueDate(updatedTask.getDueDate());
-                task.setState(updatedTask.getState());
-                task.setTag(updatedTask.getTag());
-                task.setSubTask(updatedTask.getSubTask());
+                task.copyWith(updatedTask);
+//                task.setContent(updatedTask.getContent());
+////                task.setDueDate(updatedTask.getDueDate());
+//                task.setState(updatedTask.getState());
+//                task.setTag(updatedTask.getTag());
+//                task.setSubTask(updatedTask.getSubTask());
                 return tasks;
             } else {
                 List<Task> subTasks = task.getSubTask();
@@ -201,5 +206,8 @@ public class FileTaskRepository implements TaskRepository {
         return null;
     }
 
+    private void initDirectory() {
+        directoryWriter.write(Constants.DIRECTORY_PATH);
+    }
 }
 
