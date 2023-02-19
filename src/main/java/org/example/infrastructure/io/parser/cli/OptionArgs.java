@@ -16,10 +16,6 @@ public class OptionArgs {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public boolean isNeedValue() {
         return needValue;
     }
