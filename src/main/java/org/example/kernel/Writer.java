@@ -1,4 +1,4 @@
-package org.example.infrastructure.interfaces;
+package org.example.kernel;
 
 public interface Writer {
 

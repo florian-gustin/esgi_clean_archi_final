@@ -1,6 +1,6 @@
 package org.example.infrastructure.io;
 
-import org.example.infrastructure.interfaces.ILogger;
+import org.example.kernel.Logger;
 
-public class ConsoleLogger implements ILogger {
+public class ConsoleLogger implements Logger {
 }

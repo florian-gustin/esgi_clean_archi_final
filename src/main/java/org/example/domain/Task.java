@@ -1,80 +1,94 @@
 package org.example.domain;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 public class Task {
 
-    private int id;
-    private Date created_at;
-    private Date update_at;
-    private Date end_at;
-    private String description;
-    private int state;
+    private TaskId id;
+    private Date createdDate;
+    private Date dueDate;
+    private String content;
+    private TaskState state;
     private String tag;
     private List<Task> subTask;
 
-    public Date getUpdate_at() {
-        return update_at;
+    private Task(){}
+
+    public static Task create(String content, String dueDate){
+        final Task task = new Task();;
+        task.setContent(content);
+        task.setDueDate(new Date(dueDate));
+        task.setState(TaskState.TODO);
+        task.setSubTask(new ArrayList<>());
+        return task;
     }
 
-    public int getId() {
+    public TaskId getId() {
         return id;
     }
 
-    public Date getEnd_at() {
-        return end_at;
+    public void setId(TaskId id) {
+        this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public int getState() {
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public TaskState getState() {
         return state;
+    }
+
+    public void setState(TaskState state) {
+        this.state = state;
     }
 
     public String getTag() {
         return tag;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public List<Task> getSubTask() {
         return subTask;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setEnd_at(Date end_at) {
-        this.end_at = end_at;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
     public void setSubTask(List<Task> subTask) {
         this.subTask = subTask;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public TaskId getParentId() {
+        return parentId;
     }
 
-    public void setUpdate_at(Date update_at) {
-        this.update_at = update_at;
+    public void setParentId(TaskId parentId) {
+        this.parentId = parentId;
     }
 }
