@@ -1,6 +1,5 @@
 package org.example.infrastructure.io.parser.cli;
 
-import org.example.core.usecases.data.TaskActionType;
 import org.example.core.usecases.data.TaskDTO;
 import org.example.infrastructure.io.parser.Parser;
 
@@ -23,8 +22,6 @@ public class ConsoleParser implements Parser<TaskDTO> {
         if (action.isNeedValue()) {
             argsList.remove(0);
         }
-
-
         return parseOptions(argsList, taskParams);
     }
 
