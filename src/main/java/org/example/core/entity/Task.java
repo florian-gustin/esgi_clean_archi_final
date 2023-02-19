@@ -33,6 +33,7 @@ public class Task {
             task.setDueDate(new SimpleDate(dueDate));
         if(Objects.nonNull(tag))
             task.setTag(tag);
+        task.setCreatedDate(new SimpleDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         task.setState(TaskState.TODO);
         task.setSubTask(new ArrayList<>());
         return task;

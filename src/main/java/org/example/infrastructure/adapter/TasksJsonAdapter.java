@@ -1,17 +1,17 @@
 package org.example.infrastructure.adapter;
 
 import com.google.gson.Gson;
-import org.example.core.entity.Tasks;
+import org.example.infrastructure.data.TasksPersistenceObject;
 
-public class TasksJsonAdapter implements Adapter<Tasks> {
+public class TasksJsonAdapter implements Adapter<TasksPersistenceObject> {
 
     @Override
-    public Tasks convertToObject(String json){
-        return new Gson().fromJson(json, Tasks.class);
+    public TasksPersistenceObject convertToObject(String json){
+        return new Gson().fromJson(json, TasksPersistenceObject.class);
     }
 
     @Override
-    public String convertToString(Tasks object){
+    public String convertToString(TasksPersistenceObject object){
         return new Gson().toJson(object);
     }
 }

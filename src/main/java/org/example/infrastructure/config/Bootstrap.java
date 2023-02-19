@@ -1,5 +1,9 @@
 package org.example.infrastructure.config;
 
+import org.example.core.port.ObjectMapper;
+import org.example.infrastructure.mapper.TaskMapper;
+import org.example.infrastructure.data.TaskPersistenceObject;
+import org.example.core.entity.Task;
 import org.example.core.usecases.*;
 import org.example.core.usecases.data.TaskDTO;
 import org.example.core.port.TaskRepository;
@@ -24,16 +28,17 @@ public class Bootstrap {
     private final Parser<TaskDTO> parser = new ConsoleParser();
     private final Logger<Void> consoleLogger = new ConsoleLogger();
     private final Reader<String> fileReader = new FileReader(new File(Constants.FILENAME));
-    private final Writer fileWriter = new FileWriter(Constants.FILENAME);
+    private final Writer fileWriter = new FileWriter(Constants.DIRECTORY_PATH+Constants.FILENAME);
     private final Logger<String> debugLogger =new DebugLogger(fileWriter);
     private final Writer directoryWriter = new DirectoryWriter();
     private final TasksJsonAdapter tasksJsonAdapter = new TasksJsonAdapter();
+    private final ObjectMapper<Task, TaskPersistenceObject> objectMapper = new TaskMapper();
     private final TaskRepository taskRepository = new FileTaskRepository(tasksJsonAdapter, fileWriter, directoryWriter, fileReader);
-    private final CreateTask createTask = new CreateTask(taskRepository, debugLogger, consoleLogger);
-    private final CreateSubTask createSubTask = new CreateSubTask(taskRepository, debugLogger, consoleLogger);
-    private final UpdateTask updateTask = new UpdateTask(taskRepository, debugLogger, consoleLogger);
+    private final CreateTask createTask = new CreateTask(taskRepository, debugLogger, consoleLogger, objectMapper);
+    private final CreateSubTask createSubTask = new CreateSubTask(taskRepository, debugLogger, consoleLogger, objectMapper);
+    private final UpdateTask updateTask = new UpdateTask(taskRepository, debugLogger, consoleLogger, objectMapper);
     private final RemoveTask removeTask = new RemoveTask(taskRepository, debugLogger, consoleLogger);
-    private final ListTask listTask = new ListTask(taskRepository, debugLogger, consoleLogger);
+    private final ListTask listTask = new ListTask(taskRepository, debugLogger, consoleLogger, objectMapper);
 
     public Bootstrap() throws IOException {
     }
