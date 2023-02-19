@@ -17,7 +17,18 @@ public class ConsoleParserTest {
         TaskDTO actual = consoleParser.parse(args);
         TaskDTO expected = new TaskDTO(TaskActionType.ADD,null, null, null, null, null, null);
 
-        Assertions.assertEquals(consoleParser.parse(args), expected);
+        Assertions.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void GivenNoArgumentShouldThrow() {
+        List<String> args = List.of();
+        IllegalArgumentException exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> consoleParser.parse(args));
+
+
+        Assertions.assertEquals("No arguments provided !", exception.getMessage());
     }
 
     @Test
