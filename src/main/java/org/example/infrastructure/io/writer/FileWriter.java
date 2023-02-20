@@ -12,6 +12,8 @@ public class FileWriter implements Writer {
     private File yourFile;
     public FileWriter(String fileName) throws IOException {
         yourFile = new File(fileName);
+        if(!yourFile.exists())
+            yourFile.createNewFile();
         this.filePath = Path.of(fileName);
     }
 
