@@ -21,7 +21,7 @@ public class TaskMapper implements ObjectMapper<Task, TaskPersistenceObject> {
         object.setContent(entity.getContent());
         object.setStatus(entity.getState().name());
         object.setTag(entity.getTag());
-        object.setSubTask(entity.getSubTask().stream().map(this::toPersistenceObject).toList());
+        object.setSubTask(Objects.nonNull(entity.getSubTask()) ? entity.getSubTask().stream().map(this::toPersistenceObject).toList() : null);
         return object;
     }
 
@@ -35,7 +35,8 @@ public class TaskMapper implements ObjectMapper<Task, TaskPersistenceObject> {
         task.setContent(persistenceObject.getContent());
         task.setState(TaskState.valueOf(persistenceObject.getStatus()));
         task.setTag(persistenceObject.getTag());
-        task.setSubTask(persistenceObject.getSubTask().stream().map(this::toEntity).toList());
+        task.setSubTask(Objects.nonNull(persistenceObject.getSubTask()) ? persistenceObject.getSubTask().stream().map(this::toEntity).toList() : null);
         return task;
     }
+
 }
