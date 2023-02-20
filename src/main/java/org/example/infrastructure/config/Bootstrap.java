@@ -27,7 +27,7 @@ public class Bootstrap {
 
     private final Parser<TaskDTO> parser = new ConsoleParser();
     private final Logger<Void> consoleLogger = new ConsoleLogger();
-    private final Reader<String> fileReader = new FileReader(new File(Constants.DIRECTORY_PATH+Constants.DATA_FILENAME));
+    private final Reader<String> fileReader = new FileReader(Constants.DIRECTORY_PATH+Constants.DATA_FILENAME);
     private final Writer fileWriter = new FileWriter(Constants.DIRECTORY_PATH+Constants.DATA_FILENAME);
     private final Writer fileLogWriter = new FileWriter(Constants.DIRECTORY_PATH+Constants.LOG_FILENAME);
     private final Logger<String> debugLogger =new DebugLogger(fileLogWriter);

@@ -3,7 +3,6 @@ package org.example.core.usecases;
 import org.example.core.port.ObjectMapper;
 import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.core.entity.Task;
-import org.example.core.entity.Task;
 import org.example.core.entity.Tasks;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
@@ -12,7 +11,7 @@ import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 import org.example.core.usecases.data.TaskState;
@@ -48,7 +47,7 @@ public class ListTask implements UseCase<TaskDTO, Void> {
                     consoleLogger.message(message+" "+taskPrint, DebugLevel.INFO);
                     debugLogger.message(message+" "+task, DebugLevel.INFO);
                 } else {
-                    consoleLogger.message(message+" "+task, DebugLevel.OK);
+                    consoleLogger.message(message+" "+task.task.toString(), DebugLevel.INFO);
                     debugLogger.message(message+" "+task, DebugLevel.OK);
                 }
             }
@@ -60,7 +59,7 @@ public class ListTask implements UseCase<TaskDTO, Void> {
     private Deque<TaskState> filterTask(Tasks tasks) {
         Deque<TaskState> filteredTask = new LinkedList<>();
         for( Task task : tasks.getData()) {
-            if (task.getDueDate().before(Date.from(Instant.now()))) {
+            if (task.getDueDate() != null && task.getDueDate().getValue().isBefore(LocalDate.now())){
                 filteredTask.add(new TaskState(task, true));
             } else {
                 filteredTask.add(new TaskState(task, false));
