@@ -7,10 +7,23 @@ This app create your todo list easily in your terminal. The config property is s
 - Java 17+
 - Maven
 
-## How to build
+## How to build & tests
 
 ```bash
 mvn clean install
+```
+
+or
+
+```bash
+chmod +x test.sh && ./test.sh
+```
+
+
+## How to run scenario
+
+```bash
+chmod +x run.sh && ./run.sh
 ```
 
 ## Available arguments

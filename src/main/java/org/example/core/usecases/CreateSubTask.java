@@ -1,6 +1,7 @@
 package org.example.core.usecases;
 
 import org.example.core.port.ObjectMapper;
+import org.example.core.state.TaskState;
 import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.core.entity.Task;
 import org.example.core.port.TaskRepository;
@@ -31,19 +32,23 @@ public class CreateSubTask implements UseCase<TaskDTO, Void> {
     public Void apply(TaskDTO input) {
         Task parentTask = objectMapper.toEntity(taskRepository.getTaskById(input.parentId));
         String message = MessageFormatterUtils.createSubTask(input);
-        if(Objects.isNull(parentTask)){
-            consoleLogger.message("parent task #"+input.parentId+ "not found", DebugLevel.ERROR);
-            debugLogger.message("parent task #"+input.parentId+ "not found", DebugLevel.ERROR);
+        if (Objects.isNull(parentTask)) {
+            consoleLogger.message("parent task #" + input.parentId + "not found", DebugLevel.ERROR);
+            debugLogger.message("parent task #" + input.parentId + "not found", DebugLevel.ERROR);
             return (Void) null;
         }
         parentTask.createSubTask(input.content, input.dueDate, input.tag);
-        Task updateTask = objectMapper.toEntity(taskRepository.updateTask(objectMapper.toPersistenceObject(parentTask)));
-        if(Objects.isNull(updateTask)) {
-            consoleLogger.message(message+ "? not created", DebugLevel.ERROR);
-            debugLogger.message(message+ "? created", DebugLevel.ERROR);
-        }else{
-            consoleLogger.message(message+updateTask.getId().getValue()+ " created", DebugLevel.OK);
-            debugLogger.message(message+updateTask.getId().getValue()+ " created", DebugLevel.OK);
+        Task subTask = Task.create(input.content, input.dueDate, input.tag);
+        subTask.setParentId(parentTask.getId());
+        if(Objects.nonNull(input.status))
+            subTask.setState(TaskState.valueOf(input.status));
+        Task updateTask = objectMapper.toEntity(taskRepository.addSubTask(objectMapper.toPersistenceObject(subTask)));
+        if (Objects.isNull(updateTask)) {
+            consoleLogger.message(message + "? not created", DebugLevel.ERROR);
+            debugLogger.message(message + "? created", DebugLevel.ERROR);
+        } else {
+            consoleLogger.message(message + updateTask.getId().getValue() + " created", DebugLevel.OK);
+            debugLogger.message(message + updateTask.getId().getValue() + " created", DebugLevel.OK);
         }
         return (Void) null;
     }

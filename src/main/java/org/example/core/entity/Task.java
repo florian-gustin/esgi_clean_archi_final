@@ -55,7 +55,9 @@ public class Task {
         Task subTask = Task.create(content, dueDate, tag);
         subTask.setParentId(this.getId());
         subTask.setTag(tag);
-        this.getSubTask().add(subTask);
+        List<Task> subTaskList = new ArrayList<>(this.getSubTask());
+        subTaskList.add(subTask);
+        this.setSubTask(subTaskList);
         return this;
     }
 

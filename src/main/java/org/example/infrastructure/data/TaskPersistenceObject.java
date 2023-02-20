@@ -80,27 +80,27 @@ public class TaskPersistenceObject {
     }
 
     public TaskPersistenceObject copyWith(TaskPersistenceObject taskPersistenceObject) {
-        TaskPersistenceObject copy = new TaskPersistenceObject();
-        copy.setId(taskPersistenceObject.getId());
-        copy.setParentId(taskPersistenceObject.getParentId());
-        copy.setCreatedDate(taskPersistenceObject.getCreatedDate());
-        copy.setDueDate(taskPersistenceObject.getDueDate());
-        copy.setContent(taskPersistenceObject.getContent());
-        copy.setStatus(taskPersistenceObject.getStatus());
-        copy.setTag(taskPersistenceObject.getTag());
-        copy.setSubTask(taskPersistenceObject.getSubTask());
-        return copy;
+        this.setId(taskPersistenceObject.getId());
+        this.setParentId(taskPersistenceObject.getParentId());
+        this.setCreatedDate(taskPersistenceObject.getCreatedDate());
+        this.setDueDate(taskPersistenceObject.getDueDate());
+        this.setContent(taskPersistenceObject.getContent());
+        this.setStatus(taskPersistenceObject.getStatus());
+        this.setTag(taskPersistenceObject.getTag());
+        this.setSubTask(taskPersistenceObject.getSubTask());
+        return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TaskPersistenceObject that)) return false;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getParentId(), that.getParentId()) && Objects.equals(getCreatedDate(), that.getCreatedDate()) && Objects.equals(getDueDate(), that.getDueDate()) && Objects.equals(getContent(), that.getContent()) && Objects.equals(getStatus(), that.getStatus()) && Objects.equals(getTag(), that.getTag()) && Objects.equals(getSubTask(), that.getSubTask());
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskPersistenceObject that = (TaskPersistenceObject) o;
+        return Objects.equals(id, that.id) && Objects.equals(parentId, that.parentId) && Objects.equals(createdDate, that.createdDate) && Objects.equals(dueDate, that.dueDate) && Objects.equals(content, that.content) && Objects.equals(status, that.status) && Objects.equals(tag, that.tag) && Objects.equals(subTask, that.subTask);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getParentId(), getCreatedDate(), getDueDate(), getContent(), getStatus(), getTag(), getSubTask());
+        return Objects.hash(id, parentId, createdDate, dueDate, content, status, tag, subTask);
     }
 }
