@@ -1,20 +1,20 @@
 package org.example.core.usecases;
 
-import org.example.core.port.ObjectMapper;
-import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.core.entity.Task;
 import org.example.core.entity.Tasks;
+import org.example.core.port.ObjectMapper;
 import org.example.core.port.TaskRepository;
 import org.example.core.port.UseCase;
 import org.example.core.usecases.data.TaskDTO;
+import org.example.core.usecases.data.TaskState;
 import org.example.core.usecases.utils.MessageFormatterUtils;
+import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
 import java.time.LocalDate;
-import java.util.*;
-
-import org.example.core.usecases.data.TaskState;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class ListTask implements UseCase<TaskDTO, Void> {
 

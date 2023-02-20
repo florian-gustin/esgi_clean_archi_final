@@ -1,6 +1,5 @@
 package org.example.infrastructure.io.logger;
 
-import org.example.infrastructure.io.writer.FileWriter;
 import org.example.infrastructure.io.writer.Writer;
 
 import java.time.LocalDateTime;

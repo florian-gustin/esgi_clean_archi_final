@@ -1,12 +1,10 @@
 package org.example.infrastructure.io.logger;
 
 import org.example.infrastructure.io.writer.DummyWriterMock;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,10 +1,6 @@
 package org.example.infrastructure.adapter;
 
 import com.google.gson.Gson;
-import org.example.core.entity.Task;
-import org.example.core.entity.Tasks;
-import org.example.core.state.TaskState;
-import org.example.core.validation.SimpleDate;
 import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.infrastructure.data.TasksPersistenceObject;
 import org.junit.jupiter.api.Assertions;

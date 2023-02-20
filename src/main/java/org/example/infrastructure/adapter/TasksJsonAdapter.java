@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.example.infrastructure.data.TasksPersistenceObject;
 
-import java.util.List;
-
 public class TasksJsonAdapter implements Adapter<TasksPersistenceObject> {
     private final Gson gson;
     public TasksJsonAdapter() {

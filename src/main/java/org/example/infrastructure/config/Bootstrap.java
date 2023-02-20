@@ -1,26 +1,25 @@
 package org.example.infrastructure.config;
 
-import org.example.core.port.ObjectMapper;
-import org.example.infrastructure.mapper.TaskMapper;
-import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.core.entity.Task;
+import org.example.core.port.ObjectMapper;
+import org.example.core.port.TaskRepository;
 import org.example.core.usecases.*;
 import org.example.core.usecases.data.TaskDTO;
-import org.example.core.port.TaskRepository;
 import org.example.infrastructure.adapter.TasksJsonAdapter;
+import org.example.infrastructure.data.TaskPersistenceObject;
 import org.example.infrastructure.io.logger.ConsoleLogger;
 import org.example.infrastructure.io.logger.DebugLogger;
-import org.example.infrastructure.io.parser.cli.ConsoleParser;
-import org.example.infrastructure.io.reader.FileReader;
-import org.example.infrastructure.io.writer.DirectoryWriter;
-import org.example.infrastructure.io.writer.FileWriter;
-import org.example.infrastructure.repository.FileTaskRepository;
 import org.example.infrastructure.io.logger.Logger;
 import org.example.infrastructure.io.parser.Parser;
+import org.example.infrastructure.io.parser.cli.ConsoleParser;
+import org.example.infrastructure.io.reader.FileReader;
 import org.example.infrastructure.io.reader.Reader;
+import org.example.infrastructure.io.writer.DirectoryWriter;
+import org.example.infrastructure.io.writer.FileWriter;
 import org.example.infrastructure.io.writer.Writer;
+import org.example.infrastructure.mapper.TaskMapper;
+import org.example.infrastructure.repository.FileTaskRepository;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Bootstrap {

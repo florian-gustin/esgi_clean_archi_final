@@ -1,13 +1,12 @@
 package org.example.core.entity;
 
+import org.example.core.state.TaskState;
 import org.example.core.validation.SimpleDate;
 import org.example.core.validation.TaskId;
-import org.example.core.state.TaskState;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +54,9 @@ public class Task {
         Task subTask = Task.create(content, dueDate, tag);
         subTask.setParentId(this.getId());
         subTask.setTag(tag);
-        this.getSubTask().add(subTask);
+        List<Task> subTaskList = new ArrayList<>(this.getSubTask());
+        subTaskList.add(subTask);
+        this.setSubTask(subTaskList);
         return this;
     }
 

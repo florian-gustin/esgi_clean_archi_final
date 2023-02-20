@@ -1,7 +1,6 @@
 package org.example.infrastructure.io.reader;
-import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FileReaderTest {

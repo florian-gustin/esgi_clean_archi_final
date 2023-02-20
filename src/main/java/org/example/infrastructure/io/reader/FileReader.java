@@ -1,14 +1,9 @@
 package org.example.infrastructure.io.reader;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Scanner;
 
 public class FileReader implements Reader<String> {
 

@@ -3,12 +3,8 @@ package org.example.infrastructure.mapper;
 import org.example.core.entity.Task;
 import org.example.core.state.TaskState;
 import org.example.core.validation.SimpleDate;
-import org.example.core.validation.TaskId;
 import org.example.infrastructure.data.TaskPersistenceObject;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
