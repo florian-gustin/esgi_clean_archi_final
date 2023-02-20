@@ -18,4 +18,9 @@ public final class SimpleDate implements ValueObject<LocalDate> {
     public LocalDate getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

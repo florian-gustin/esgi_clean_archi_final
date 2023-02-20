@@ -37,8 +37,6 @@ public final class TaskId implements ValueObjectId {
 
     @Override
     public String toString() {
-        return "TaskId{" +
-                "value='" + value + '\'' +
-                '}';
+        return value;
     }
 }

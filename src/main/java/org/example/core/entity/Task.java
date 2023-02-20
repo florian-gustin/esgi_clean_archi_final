@@ -40,10 +40,14 @@ public class Task {
     }
 
     public Task update(String content, String dueDate, String state, String tag){
-        this.setContent(content);
-        this.setDueDate(new SimpleDate(dueDate));
-        this.setState(TaskState.valueOf(state));
-        this.setTag(tag);
+        if(Objects.nonNull(content))
+            this.setContent(content);
+        if(Objects.nonNull(dueDate))
+            this.setDueDate(new SimpleDate(dueDate));
+        if(Objects.nonNull(state))
+            this.setState(TaskState.valueOf(state));
+        if(Objects.nonNull(tag))
+            this.setTag(tag);
         return this;
     }
 
@@ -139,5 +143,19 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(state, subTask);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", createdDate=" + createdDate +
+                ", dueDate=" + dueDate +
+                ", content='" + content + '\'' +
+                ", state=" + state +
+                ", tag='" + tag + '\'' +
+                ", subTask=" + subTask +
+                '}';
     }
 }

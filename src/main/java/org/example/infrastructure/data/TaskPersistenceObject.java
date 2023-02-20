@@ -2,6 +2,7 @@ package org.example.infrastructure.data;
 
 
 import java.util.List;
+import java.util.Objects;
 
 public class TaskPersistenceObject {
     private String id;
@@ -89,5 +90,17 @@ public class TaskPersistenceObject {
         copy.setTag(taskPersistenceObject.getTag());
         copy.setSubTask(taskPersistenceObject.getSubTask());
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TaskPersistenceObject that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getParentId(), that.getParentId()) && Objects.equals(getCreatedDate(), that.getCreatedDate()) && Objects.equals(getDueDate(), that.getDueDate()) && Objects.equals(getContent(), that.getContent()) && Objects.equals(getStatus(), that.getStatus()) && Objects.equals(getTag(), that.getTag()) && Objects.equals(getSubTask(), that.getSubTask());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getParentId(), getCreatedDate(), getDueDate(), getContent(), getStatus(), getTag(), getSubTask());
     }
 }

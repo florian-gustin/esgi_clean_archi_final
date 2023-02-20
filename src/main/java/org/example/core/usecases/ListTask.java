@@ -11,6 +11,11 @@ import org.example.core.usecases.utils.MessageFormatterUtils;
 import org.example.infrastructure.io.logger.DebugLevel;
 import org.example.infrastructure.io.logger.Logger;
 
+import java.time.LocalDate;
+import java.util.*;
+
+import org.example.core.usecases.data.TaskState;
+
 public class ListTask implements UseCase<TaskDTO, Void> {
 
     private final TaskRepository taskRepository;
@@ -35,10 +40,31 @@ public class ListTask implements UseCase<TaskDTO, Void> {
             consoleLogger.message(message+"none tasks", DebugLevel.ERROR);
             debugLogger.message(message+"none tasks", DebugLevel.ERROR);
         }else{
-            consoleLogger.message(message+" "+tasks, DebugLevel.OK);
-            debugLogger.message(message+" "+tasks, DebugLevel.OK);
+            Deque<TaskState> filteredTask = filterTask(tasks);
+            for( TaskState task : filteredTask) {
+                if (task.isOverDue) {
+                    String taskPrint = "\u001B[41m" + task.task.toString() + "\u001B[0m";
+                    consoleLogger.message(message+" "+taskPrint, DebugLevel.INFO);
+                    debugLogger.message(message+" "+task, DebugLevel.INFO);
+                } else {
+                    consoleLogger.message(message+" "+task.task.toString(), DebugLevel.INFO);
+                    debugLogger.message(message+" "+task, DebugLevel.OK);
+                }
+            }
         }
         // afficher
         return (Void) null;
+    }
+
+    private Deque<TaskState> filterTask(Tasks tasks) {
+        Deque<TaskState> filteredTask = new LinkedList<>();
+        for( Task task : tasks.getData()) {
+            if (task.getDueDate() != null && task.getDueDate().getValue().isBefore(LocalDate.now())){
+                filteredTask.add(new TaskState(task, true));
+            } else {
+                filteredTask.add(new TaskState(task, false));
+            }
+        }
+        return filteredTask;
     }
 }
