@@ -1,6 +1,6 @@
 # 4. Json Adapter
 
-Date: 2023-02-18
+Date: 2023-02-19
 
 ## Status
 
