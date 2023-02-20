@@ -8,13 +8,26 @@ Accepted
 
 ## Context
 
-The talk is based on which interfaces and classes must be required.
+The talk is based on which interfaces should be declared.
 
 ## Decision
 
+We will use the following interfaces:
+
+- TaskRepository
+- UseCase
+- UseCaseParams
+- Parser
+- Reader
+- Writer
+- Adapter
 
 ## Consequences
 
-It will be more complicated than a simple mvc approach but it will be more maintainable.
+We have to know where they will be located and how they will be used.
+
+
+
+
 
 
