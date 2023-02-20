@@ -13,6 +13,7 @@ public class FileWriter implements Writer {
     public FileWriter(String fileName) throws IOException {
         yourFile = new File(fileName);
         if(!yourFile.exists())
+            yourFile.getParentFile().mkdirs();
             yourFile.createNewFile();
         this.filePath = Path.of(fileName);
     }
