@@ -60,7 +60,7 @@ public class ListTask implements UseCase<TaskDTO, Void> {
         Deque<TaskState> filteredTask = new LinkedList<>();
         for( Task task : tasks.getData()) {
             if (task.getDueDate() != null && task.getDueDate().getValue().isBefore(LocalDate.now())){
-                filteredTask.add(new TaskState(task, true));
+                filteredTask.addFirst(new TaskState(task, true));
             } else {
                 filteredTask.add(new TaskState(task, false));
             }
