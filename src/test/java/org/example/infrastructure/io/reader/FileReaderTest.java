@@ -9,8 +9,7 @@ public class FileReaderTest {
     @Test
     void readTest() {
 
-        File file = new File("src/test/resources/FileTest.json");
-        FileReader fileReader = new FileReader(file);
+        FileReader fileReader = new FileReader("src/test/resources/FileTest.json");
 
         assertEquals("Hello ESGI", fileReader.read());
 

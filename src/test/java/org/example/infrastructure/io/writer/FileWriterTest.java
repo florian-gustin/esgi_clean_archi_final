@@ -30,10 +30,10 @@ public class FileWriterTest {
         delete();
     }
 
-//    @AfterAll
-//    static void dispose() {
-//        delete();
-//    }
+    @AfterAll
+    static void dispose() {
+        delete();
+    }
 
     @Test
     void testWriteFile() {
