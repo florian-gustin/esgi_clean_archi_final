@@ -9,14 +9,17 @@ import java.nio.file.StandardOpenOption;
 public class FileWriter implements Writer {
 
     private final Path filePath;
+    private File yourFile;
     public FileWriter(String fileName) throws IOException {
-        File yourFile = new File(fileName);
-        boolean created = yourFile.createNewFile();
+        yourFile = new File(fileName);
         this.filePath = Path.of(fileName);
     }
 
     public boolean write(String message) {
         try {
+            if(!yourFile.exists())
+                yourFile.createNewFile();
+
             Files.writeString(this.filePath, message, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             return true;
         } catch (IOException e) {
