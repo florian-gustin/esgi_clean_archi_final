@@ -80,15 +80,16 @@ public class TaskPersistenceObject {
     }
 
     public TaskPersistenceObject copyWith(TaskPersistenceObject taskPersistenceObject) {
-        this.setId(taskPersistenceObject.getId());
-        this.setParentId(taskPersistenceObject.getParentId());
-        this.setCreatedDate(taskPersistenceObject.getCreatedDate());
-        this.setDueDate(taskPersistenceObject.getDueDate());
-        this.setContent(taskPersistenceObject.getContent());
-        this.setStatus(taskPersistenceObject.getStatus());
-        this.setTag(taskPersistenceObject.getTag());
-        this.setSubTask(taskPersistenceObject.getSubTask());
-        return this;
+        TaskPersistenceObject copy = new TaskPersistenceObject();
+        copy.setId(taskPersistenceObject.getId());
+        copy.setParentId(taskPersistenceObject.getParentId());
+        copy.setCreatedDate(taskPersistenceObject.getCreatedDate());
+        copy.setDueDate(taskPersistenceObject.getDueDate());
+        copy.setContent(taskPersistenceObject.getContent());
+        copy.setStatus(taskPersistenceObject.getStatus());
+        copy.setTag(taskPersistenceObject.getTag());
+        copy.setSubTask(taskPersistenceObject.getSubTask());
+        return copy;
     }
 
     @Override
